@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import Hero from '@/components/Hero';
 
 // Featured products for homepage
 const featuredProducts = [
@@ -41,48 +42,49 @@ const featuredProducts = [
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Vítejte v Fairy Bloom
-          </h1>
-          <p className="text-xl text-gray-600 mb-8">
-            Elegantní šperky s opravdovými květinami z českých luk a lesů
-          </p>
-        </div>
+    <div className="min-h-screen bg-bg">
+      {/* Hero Section */}
+      <Hero 
+        title="Vítejte v Fairy Bloom"
+        subtitle="Elegantní šperky s opravdovými květinami z českých luk a lesů"
+        image="/hero-jewelry.jpg"
+        ctaText="Prohlédnout kolekci"
+        ctaLink="/náhrdelníky"
+      />
+      
+      <div className="max-w-7xl mx-auto px-gap sm:px-6 lg:px-8 py-24">
         
         {/* Category Links */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gap mb-16">
           <Link href="/náhrdelníky">
-            <Card className="group cursor-pointer hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+            <Card className="group cursor-pointer hover:shadow-soft transition-all duration-300 transform hover:-translate-y-1 bg-surface border-border">
               <CardContent className="p-6 text-center">
-                <h3 className="text-lg font-semibold mb-2 group-hover:text-gray-700 transition-colors">Náhrdelníky</h3>
-                <p className="text-gray-600">Elegantní náhrdelníky s květinami</p>
+                <h3 className="text-lg font-semibold mb-2 group-hover:text-text transition-colors text-text">Náhrdelníky</h3>
+                <p className="text-muted">Elegantní náhrdelníky s květinami</p>
               </CardContent>
             </Card>
           </Link>
           <Link href="/náušnice">
-            <Card className="group cursor-pointer hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+            <Card className="group cursor-pointer hover:shadow-soft transition-all duration-300 transform hover:-translate-y-1 bg-surface border-border">
               <CardContent className="p-6 text-center">
-                <h3 className="text-lg font-semibold mb-2 group-hover:text-gray-700 transition-colors">Náušnice</h3>
-                <p className="text-gray-600">Jemné náušnice pro každodenní eleganci</p>
+                <h3 className="text-lg font-semibold mb-2 group-hover:text-text transition-colors text-text">Náušnice</h3>
+                <p className="text-muted">Jemné náušnice pro každodenní eleganci</p>
               </CardContent>
             </Card>
           </Link>
           <Link href="/prsteny">
-            <Card className="group cursor-pointer hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+            <Card className="group cursor-pointer hover:shadow-soft transition-all duration-300 transform hover:-translate-y-1 bg-surface border-border">
               <CardContent className="p-6 text-center">
-                <h3 className="text-lg font-semibold mb-2 group-hover:text-gray-700 transition-colors">Prsteny</h3>
-                <p className="text-gray-600">Jedinečné prsteny pro výjimečné okamžiky</p>
+                <h3 className="text-lg font-semibold mb-2 group-hover:text-text transition-colors text-text">Prsteny</h3>
+                <p className="text-muted">Jedinečné prsteny pro výjimečné okamžiky</p>
               </CardContent>
             </Card>
           </Link>
           <Link href="/náramky">
-            <Card className="group cursor-pointer hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+            <Card className="group cursor-pointer hover:shadow-soft transition-all duration-300 transform hover:-translate-y-1 bg-surface border-border">
               <CardContent className="p-6 text-center">
-                <h3 className="text-lg font-semibold mb-2 group-hover:text-gray-700 transition-colors">Náramky</h3>
-                <p className="text-gray-600">Stylové náramky plné přírodní krásy</p>
+                <h3 className="text-lg font-semibold mb-2 group-hover:text-text transition-colors text-text">Náramky</h3>
+                <p className="text-muted">Stylové náramky plné přírodní krásy</p>
               </CardContent>
             </Card>
           </Link>
@@ -90,15 +92,15 @@ export default function Home() {
 
         {/* Featured Products */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Doporučené produkty</h2>
-          <p className="text-gray-600">Naše nejoblíbenější kousky</p>
+          <h2 className="text-3xl font-bold text-text mb-4">Doporučené produkty</h2>
+          <p className="text-muted">Naše nejoblíbenější kousky</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {featuredProducts.map((product) => (
             <Link key={product.id} href={`/product/${product.id}`}>
-              <Card className="group cursor-pointer hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                <div className="aspect-square overflow-hidden rounded-t-lg bg-gray-100">
+              <Card className="group cursor-pointer hover:shadow-soft transition-all duration-300 transform hover:-translate-y-1 bg-surface border-border">
+                <div className="aspect-square overflow-hidden rounded-t-2xl bg-surface">
                   <Image
                     src={product.image}
                     alt={product.title}
@@ -108,20 +110,20 @@ export default function Home() {
                   />
                 </div>
                 <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-gray-700 transition-colors">
+                  <h3 className="text-lg font-semibold text-text mb-2 group-hover:text-muted transition-colors">
                     {product.title}
                   </h3>
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                  <p className="text-muted text-sm mb-4 line-clamp-2">
                     {product.description}
                   </p>
                   <div className="flex items-center justify-between">
-                    <span className="text-xl font-bold text-gray-900">
+                    <span className="text-xl font-bold text-text">
                       {product.price}
                     </span>
                     <Button 
                       variant="outline" 
                       size="sm"
-                      className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 border-border text-muted hover:text-text"
                     >
                       Zobrazit
                     </Button>
