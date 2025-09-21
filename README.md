@@ -1,15 +1,15 @@
-# Fairy Bloom - Shopify Headless Ecommerce Frontend
+# Fairy Bloom - Next.js Shopify Integration
 
-A beautiful, modern frontend for your Shopify headless ecommerce store, built with React, TypeScript, and Tailwind CSS.
+A modern, production-ready Next.js application with Shopify Storefront API integration, featuring a beautiful cart sidebar and account management.
 
 ## ✨ Features
 
-- **Shopify Integration**: Ready-to-use Shopify Storefront API integration
-- **Modern UI**: Beautiful, responsive design with smooth animations
-- **Czech Language**: Fully localized in Czech
-- **Product Showcase**: Elegant product display with categories
-- **Mobile Responsive**: Works perfectly on all devices
-- **Fast Performance**: Optimized for speed and SEO
+- **Modern UI**: Clean, Apple-inspired design with Tailwind CSS
+- **Cart Sidebar**: Smooth Framer Motion animations with cart management
+- **Shopify Integration**: Direct checkout creation via Storefront API
+- **Account Management**: Redirects to Shopify login page
+- **Responsive Design**: Works perfectly on all devices
+- **TypeScript**: Full type safety throughout the application
 
 ## 🚀 Quick Start
 
@@ -18,91 +18,105 @@ A beautiful, modern frontend for your Shopify headless ecommerce store, built wi
    npm install
    ```
 
-2. **Configure Shopify**:
-   - Update your Shopify credentials in `src/pages/index.js`:
-     ```javascript
-     const SHOPIFY_STORE_DOMAIN = 'your-shop.myshopify.com';
-     const SHOPIFY_STOREFRONT_ACCESS_TOKEN = 'your-storefront-access-token';
-     ```
+2. **Configure environment variables**:
+   ```bash
+   cp env.example .env.local
+   ```
+   
+   Update `.env.local` with your Shopify credentials:
+   ```env
+   NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN=fairy-bloom-cz.myshopify.com
+   SHOPIFY_STOREFRONT_ACCESS_TOKEN=your_storefront_access_token_here
+   ```
 
 3. **Start development server**:
    ```bash
    npm run dev
    ```
 
-4. **Build for production**:
-   ```bash
-   npm run build
-   ```
+4. **Open your browser**:
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-## 📁 Project Structure
+## 🛍️ Components Overview
 
-```
-src/
-├── pages/
-│   ├── Index.tsx          # Homepage with product categories
-│   ├── CategoryPage.tsx   # Category product listings
-│   ├── ProductDetailPage.tsx # Individual product pages
-│   ├── NotFound.tsx       # 404 page
-│   └── index.js           # Shopify products page
-├── components/
-│   ├── Navigation.tsx     # Main navigation
-│   ├── Hero.tsx          # Hero section
-│   ├── ProductSection.tsx # Product grid sections
-│   ├── ProductCard.tsx   # Individual product cards
-│   ├── Footer.tsx        # Site footer
-│   └── ui/               # Reusable UI components
-├── assets/               # Images and static assets
-└── hooks/               # Custom React hooks
-```
+### `components/Navbar.tsx`
+- Main navigation component
+- Contains account and cart icons
+- Manages cart state and sidebar visibility
 
-## 🛍️ Shopify Setup
+### `components/AccountIcon.tsx`
+- User profile icon
+- Redirects to Shopify login page
+- Configurable store domain via environment variable
 
-1. **Get your Storefront Access Token**:
-   - Go to your Shopify Admin
-   - Navigate to Apps > App and sales channel settings
-   - Create a private app or use the Storefront API
-   - Copy your Storefront Access Token
+### `components/CartIcon.tsx`
+- Shopping cart icon with item count badge
+- Opens cart sidebar on click
+- Shows total number of items
 
-2. **Update the configuration**:
-   - Open `src/pages/index.js`
-   - Replace the placeholder values with your actual Shopify credentials
+### `components/CartSidebar.tsx`
+- Slide-in cart sidebar with Framer Motion animations
+- Premium, minimalist design
+- Cart item management (add/remove/update quantities)
+- Checkout integration with Shopify
 
-## 🎨 Customization
+## 🔧 API Routes
 
-- **Colors**: Update the color scheme in `tailwind.config.ts`
-- **Content**: Modify text content directly in the component files
-- **Styling**: All styles use Tailwind CSS classes
-- **Images**: Replace placeholder images in `src/assets/`
+### `app/api/create-checkout/route.ts`
+- Creates Shopify checkout sessions
+- Accepts cart items with variant IDs and quantities
+- Returns checkout URL for redirect
 
-## 📱 Pages
+## 🎨 Design System
 
-- **Homepage** (`/`): Product categories and featured content
-- **Categories** (`/náhrdelníky`, `/náušnice`, etc.): Product listings by category
-- **Product Details** (`/product/:id`): Individual product pages
-- **Shopify Products** (`/shopify`): Direct Shopify integration page
+- **Colors**: Subtle grays with black accents
+- **Typography**: Clean, readable fonts
+- **Spacing**: Generous whitespace for premium feel
+- **Animations**: Smooth Framer Motion transitions
+- **Icons**: Lucide React for consistency
 
-## 🚀 Deployment
+## 📱 Responsive Design
 
-This project is ready to deploy to any static hosting service:
-
-- **Vercel**: Connect your GitHub repository
-- **Netlify**: Drag and drop the `dist` folder
-- **GitHub Pages**: Use GitHub Actions for automatic deployment
+- Mobile-first approach
+- Collapsible navigation on smaller screens
+- Touch-friendly cart sidebar
+- Optimized for all device sizes
 
 ## 🛠️ Technologies Used
 
-- **React 18** - UI framework
+- **Next.js 14** - React framework with App Router
 - **TypeScript** - Type safety
-- **Tailwind CSS** - Styling
-- **Vite** - Build tool
-- **React Router** - Navigation
+- **Tailwind CSS** - Utility-first styling
+- **Framer Motion** - Smooth animations
+- **Lucide React** - Beautiful icons
+- **Radix UI** - Accessible component primitives
 - **Shopify Storefront API** - Ecommerce integration
-- **Lucide React** - Icons
+
+## 🔐 Environment Variables
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN` | Your Shopify store domain | Yes |
+| `SHOPIFY_STOREFRONT_ACCESS_TOKEN` | Storefront API access token | Yes |
+
+## 🚀 Deployment
+
+This project is ready to deploy to:
+
+- **Vercel** (recommended)
+- **Netlify**
+- **Railway**
+- **Any Node.js hosting service**
+
+### Vercel Deployment
+
+1. Connect your GitHub repository to Vercel
+2. Add environment variables in Vercel dashboard
+3. Deploy automatically on every push
 
 ## 📄 License
 
-This project is private and proprietary to Fairy Bloom.
+Private and proprietary to Fairy Bloom.
 
 ---
 
