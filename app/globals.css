@@ -1,67 +1,70 @@
-/* RESTORED THEME TOKENS - safe change */
+/* FAIRY BLOOM PREMIUM DESIGN SYSTEM */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    /* Base theme tokens */
-    --bg: 0 0% 100%;
-    --surface: 0 0% 98%;
-    --text: 222.2 84% 4.9%;
-    --muted: 215.4 16.3% 46.9%;
-    --accent: 222.2 47.4% 11.2%;
+    /* Fairy Bloom Premium Color Palette */
+    --cream: 248 245 240;           /* Light cream background */
+    --warm-white: 252 251 248;      /* Warmer white for surfaces */
+    --soft-beige: 242 238 230;      /* Soft beige for cards */
+    --warm-brown: 139 110 99;       /* Warm brown for text */
+    --deep-brown: 101 67 33;        /* Deep brown for headings */
+    --muted-gold: 180 149 108;      /* Muted gold for accents */
+    --sage-green: 156 175 136;      /* Sage green for nature touches */
+    --dusty-rose: 196 164 132;      /* Dusty rose for subtle accents */
+    --charcoal: 60 60 60;           /* Charcoal for dark text */
+    
+    /* Design System Tokens */
+    --bg: var(--cream);
+    --surface: var(--warm-white);
+    --surface-secondary: var(--soft-beige);
+    --text: var(--deep-brown);
+    --text-secondary: var(--warm-brown);
+    --text-muted: var(--charcoal);
+    --accent: var(--muted-gold);
+    --accent-secondary: var(--sage-green);
+    --accent-tertiary: var(--dusty-rose);
+    
+    /* Shadows & Effects */
+    --shadow-soft: 0 4px 20px -2px rgba(139, 110, 99, 0.1);
+    --shadow-medium: 0 8px 30px -4px rgba(139, 110, 99, 0.15);
+    --shadow-strong: 0 12px 40px -6px rgba(139, 110, 99, 0.2);
+    --shadow-gold: 0 4px 20px -2px rgba(180, 149, 108, 0.2);
+    
+    /* Border Radius */
+    --radius-sm: 0.5rem;
     --radius: 0.75rem;
-    --shadow-soft: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    --gap-base: 1rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+    --radius-2xl: 2rem;
     
-    /* Existing shadcn/ui tokens */
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222.2 84% 4.9%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent-foreground: 222.2 84% 4.9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-  }
-
-  .dark {
-    /* Base theme tokens - dark mode */
-    --bg: 222.2 84% 4.9%;
-    --surface: 217.2 32.6% 17.5%;
-    --text: 210 40% 98%;
-    --muted: 215 20.2% 65.1%;
-    --accent: 210 40% 98%;
-    --shadow-soft: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+    /* Spacing */
+    --gap-xs: 0.5rem;
+    --gap-sm: 0.75rem;
+    --gap: 1rem;
+    --gap-lg: 1.5rem;
+    --gap-xl: 2rem;
+    --gap-2xl: 3rem;
+    --gap-3xl: 4rem;
     
-    /* Existing shadcn/ui tokens - dark mode */
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    /* Typography Scale */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    --text-4xl: 2.25rem;
+    --text-5xl: 3rem;
+    --text-6xl: 3.75rem;
+    --text-7xl: 4.5rem;
+    --text-8xl: 6rem;
+    --text-9xl: 8rem;
   }
 }
 
@@ -69,14 +72,89 @@
   * {
     @apply border-border;
   }
-  body {
-    @apply bg-background text-foreground;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
+  
+  html {
+    scroll-behavior: smooth;
   }
   
-  /* Responsive font scaling */
+  body {
+    @apply bg-bg text-text;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Typography Hierarchy */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+  
+  h1 {
+    @apply text-6xl md:text-7xl lg:text-8xl;
+    font-weight: 700;
+  }
+  
+  h2 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+  }
+  
+  h3 {
+    @apply text-2xl md:text-3xl lg:text-4xl;
+  }
+  
+  h4 {
+    @apply text-xl md:text-2xl;
+  }
+  
+  h5 {
+    @apply text-lg md:text-xl;
+  }
+  
+  h6 {
+    @apply text-base md:text-lg;
+  }
+  
+  /* Premium Button Styles */
+  .btn-primary {
+    @apply bg-accent hover:bg-accent/90 text-white px-8 py-4 rounded-xl font-medium transition-all duration-300 shadow-soft hover:shadow-gold hover:scale-105;
+  }
+  
+  .btn-secondary {
+    @apply bg-surface-secondary hover:bg-surface text-text border border-accent/20 hover:border-accent px-6 py-3 rounded-lg font-medium transition-all duration-300;
+  }
+  
+  .btn-ghost {
+    @apply text-text-secondary hover:text-text hover:bg-surface/50 px-4 py-2 rounded-lg font-medium transition-all duration-300;
+  }
+  
+  /* Premium Card Styles */
+  .card-premium {
+    @apply bg-surface border border-accent/10 rounded-2xl shadow-soft hover:shadow-medium transition-all duration-500 overflow-hidden;
+  }
+  
+  .card-premium:hover {
+    transform: translateY(-4px);
+  }
+  
+  /* Fade In Animation */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+  
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Responsive Font Scaling */
   @media (min-width: 640px) {
     body { font-size: 16px; }
   }
@@ -85,5 +163,8 @@
   }
   @media (min-width: 1024px) {
     body { font-size: 18px; }
+  }
+  @media (min-width: 1280px) {
+    body { font-size: 19px; }
   }
 }

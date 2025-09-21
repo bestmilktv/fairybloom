@@ -36,34 +36,36 @@ export default function ProductCard({
       exit="exit"
     >
       <Link href={href}>
-        <Card className="group cursor-pointer hover:shadow-soft transition-all duration-300 transform hover:scale-[1.02] bg-surface border-border overflow-hidden">
-          {/* UI: product card visual polish only */}
-          <div className="aspect-square overflow-hidden rounded-t-2xl bg-surface relative">
+        <Card className="group cursor-pointer card-premium hover:shadow-medium transition-all duration-500 transform hover:scale-[1.02] overflow-hidden">
+          {/* FAIRY BLOOM PREMIUM PRODUCT CARD */}
+          <div className="aspect-square overflow-hidden rounded-t-2xl bg-surface-secondary relative">
             <Image
               src={image}
               alt={title}
               width={400}
               height={400}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
               loading="lazy"
             />
+            {/* Overlay gradient on hover */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           </div>
-          <CardContent className="p-6">
-            <h3 className="text-lg font-semibold text-text mb-2 group-hover:text-muted transition-colors truncate">
+          <CardContent className="p-6 space-y-3">
+            <h3 className="text-lg font-serif font-semibold text-text group-hover:text-accent transition-colors duration-300 truncate">
               {title}
             </h3>
-            <p className="text-muted text-sm mb-4 line-clamp-2 leading-relaxed">
+            <p className="text-text-secondary text-sm line-clamp-2 leading-relaxed">
               {description}
             </p>
-            <div className="flex items-center justify-between">
-              <span className="text-xl font-bold text-text">
+            <div className="flex items-center justify-between pt-2">
+              <span className="text-xl font-serif font-bold text-text">
                 {price}
               </span>
               {showButton && (
                 <Button 
                   variant="outline" 
                   size="sm"
-                  className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 border-border text-muted hover:text-text hover:bg-surface"
+                  className="opacity-0 group-hover:opacity-100 transition-all duration-500 border-accent/30 text-accent hover:text-white hover:bg-accent hover:border-accent transform translate-y-2 group-hover:translate-y-0"
                 >
                   {buttonText}
                 </Button>

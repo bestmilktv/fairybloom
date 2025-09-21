@@ -17,47 +17,51 @@ export default function Hero({
   ctaLink = "/náhrdelníky"
 }: HeroProps) {
   return (
-    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
-      {/* UI: hero restyle only */}
-      <div className="absolute inset-0 bg-gradient-to-br from-surface/20 via-bg/40 to-surface/30" />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* FAIRY BLOOM PREMIUM HERO SECTION */}
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0">
+        <Image
+          src={image}
+          alt={title}
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-black/20 to-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-accent/10 via-transparent to-transparent" />
+      </div>
       
-      <div className="relative z-10 max-w-7xl mx-auto px-gap sm:px-6 lg:px-8 py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Content */}
-          <div className="text-center lg:text-left space-y-8">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-text leading-tight tracking-tight">
-              {title}
-            </h1>
-            <p className="text-xl md:text-2xl text-muted leading-relaxed max-w-2xl mx-auto lg:mx-0">
-              {subtitle}
-            </p>
-            <div className="flex justify-center lg:justify-start">
-              <Button 
-                asChild
-                className="bg-accent hover:bg-accent/90 text-white px-8 py-4 text-lg font-medium rounded-2xl shadow-soft transition-all duration-300 hover:shadow-lg hover:scale-105"
-              >
-                <a href={ctaLink}>
-                  {ctaText}
-                </a>
-              </Button>
-            </div>
-          </div>
-
-          {/* Image */}
-          <div className="relative">
-            <div className="aspect-square max-w-lg mx-auto lg:mx-0">
-              <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-soft">
-                <Image
-                  src={image}
-                  alt={title}
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
-            </div>
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-gap-lg text-center">
+        <div className="space-y-8 max-w-4xl mx-auto">
+          {/* Main Heading */}
+          <h1 className="text-6xl md:text-7xl lg:text-8xl font-serif font-bold text-white leading-tight tracking-tight">
+            {title}
+          </h1>
+          
+          {/* Subtitle */}
+          <p className="text-xl md:text-2xl lg:text-3xl text-white/90 leading-relaxed font-light max-w-3xl mx-auto">
+            {subtitle}
+          </p>
+          
+          {/* CTA Button */}
+          <div className="pt-8">
+            <Button 
+              asChild
+              className="btn-primary text-lg px-12 py-6 rounded-2xl shadow-gold hover:shadow-strong"
+            >
+              <a href={ctaLink}>
+                {ctaText}
+              </a>
+            </Button>
           </div>
         </div>
+      </div>
+      
+      {/* Decorative Elements */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+        <div className="w-1 h-16 bg-white/30 rounded-full animate-pulse"></div>
       </div>
     </section>
   );
