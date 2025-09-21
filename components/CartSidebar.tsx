@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Plus, Minus, ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { slideFromRight } from '@/lib/animations';
 
 interface CartItem {
   id: string;
@@ -92,10 +93,10 @@ export default function CartSidebar({
           
           {/* Sidebar */}
           <motion.div
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            variants={slideFromRight}
+            initial="initial"
+            animate="animate"
+            exit="exit"
             className="fixed right-0 top-0 h-full w-full max-w-[420px] bg-surface shadow-2xl z-50 flex flex-col rounded-l-2xl"
           >
             {/* Header */}

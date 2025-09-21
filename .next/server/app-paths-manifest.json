@@ -4,7 +4,7 @@
   "/náhrdelníky/page": "app/náhrdelníky/page.js",
   "/náramky/page": "app/náramky/page.js",
   "/náušnice/page": "app/náušnice/page.js",
-  "/prsteny/page": "app/prsteny/page.js",
   "/page": "app/page.js",
-  "/product/[id]/page": "app/product/[id]/page.js"
+  "/product/[id]/page": "app/product/[id]/page.js",
+  "/prsteny/page": "app/prsteny/page.js"
 }
