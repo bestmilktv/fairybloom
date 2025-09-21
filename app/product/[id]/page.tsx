@@ -218,30 +218,32 @@ export default function ProductPage({ params }: ProductPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="min-h-screen bg-bg">
+      <div className="max-w-7xl mx-auto px-gap sm:px-6 lg:px-8 py-16">
+        {/* UI: product page layout polish */}
         {/* Breadcrumb */}
-        <div className="mb-8">
+        <div className="mb-12">
           <Link 
             href={product.categoryPath} 
-            className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors duration-300"
+            className="inline-flex items-center text-muted hover:text-text transition-colors duration-300"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Zpět na {product.category}
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          {/* Product Images */}
-          <div className="space-y-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
+          {/* Product Gallery - Left Column */}
+          <div className="space-y-6">
             {/* Main Image */}
-            <div className="aspect-square bg-white rounded-2xl overflow-hidden shadow-sm">
+            <div className="aspect-square bg-surface rounded-2xl overflow-hidden shadow-soft">
               <Image
                 src={product.images[0]}
                 alt={product.title}
                 width={600}
                 height={600}
                 className="w-full h-full object-cover"
+                priority
               />
             </div>
             
@@ -251,7 +253,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                 {product.images.map((image, index) => (
                   <div
                     key={index}
-                    className="aspect-square bg-white rounded-lg overflow-hidden border-2 border-gray-200 hover:border-gray-300 transition-colors cursor-pointer"
+                    className="aspect-square bg-surface rounded-xl overflow-hidden border-2 border-border hover:border-accent transition-colors cursor-pointer"
                   >
                     <Image
                       src={image}
@@ -266,64 +268,111 @@ export default function ProductPage({ params }: ProductPageProps) {
             )}
           </div>
 
-          {/* Product Details */}
-          <div className="space-y-8">
+          {/* Product Meta - Right Column */}
+          <div className="space-y-10">
             {/* Title and Price */}
-            <div>
-              <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            <div className="space-y-4">
+              <h1 className="text-5xl font-bold text-text leading-tight">
                 {product.title}
               </h1>
-              <p className="text-3xl font-semibold text-gray-900">
+              <p className="text-4xl font-semibold text-text">
                 {product.price}
               </p>
+              
+              {/* Batch/Date Chip */}
+              <div className="inline-flex items-center px-3 py-1 rounded-full bg-accent/10 text-accent text-sm font-medium">
+                Vánoční kolekce 2024
+              </div>
             </div>
 
             {/* Short Description */}
-            <p className="text-xl text-gray-600 leading-relaxed">
+            <p className="text-xl text-muted leading-relaxed">
               {product.shortDescription}
             </p>
 
-            {/* Add to Cart Button */}
-            <div className="flex space-x-4">
-              <Button 
-                className="flex-1 bg-black hover:bg-gray-800 text-white h-12 text-base font-medium"
-              >
-                Přidat do košíku
-              </Button>
-              <Button variant="outline" size="icon" className="h-12 w-12">
-                <Heart className="h-5 w-5" />
-              </Button>
+            {/* Add to Cart Section */}
+            <div className="space-y-6">
+              <div className="flex gap-4">
+                <Button 
+                  className="flex-1 bg-accent hover:bg-accent/90 text-white h-14 text-lg font-medium rounded-2xl shadow-soft"
+                >
+                  Přidat do košíku
+                </Button>
+                <Button variant="outline" size="icon" className="h-14 w-14 rounded-2xl border-border hover:bg-surface">
+                  <Heart className="h-6 w-6" />
+                </Button>
+              </div>
+            </div>
+
+            {/* Care Instructions */}
+            <div className="bg-muted/30 rounded-2xl p-8 space-y-4">
+              <h3 className="text-xl font-semibold text-text">
+                Péče o šperk
+              </h3>
+              <ul className="space-y-3 text-muted">
+                <li className="flex items-start">
+                  <span className="text-accent mr-3">•</span>
+                  <span>Chraňte před přímým sluncem a vysokými teplotami</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-accent mr-3">•</span>
+                  <span>Čistěte jemně suchým hadříkem</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-accent mr-3">•</span>
+                  <span>Nenoste při sportu nebo koupání</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-accent mr-3">•</span>
+                  <span>Ukládejte v suchém místě</span>
+                </li>
+              </ul>
             </div>
 
             {/* Full Description */}
-            <div className="border-t border-gray-200 pt-8">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">
+            <div className="border-t border-border pt-10">
+              <h3 className="text-2xl font-semibold text-text mb-6">
                 O produktu
               </h3>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-muted leading-relaxed text-lg">
                 {product.fullDescription}
               </p>
             </div>
 
             {/* Product Features */}
-            <div className="border-t border-gray-200 pt-8">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">
+            <div className="border-t border-border pt-10">
+              <h3 className="text-2xl font-semibold text-text mb-6">
                 Vlastnosti
               </h3>
-              <ul className="space-y-2 text-gray-600">
-                <li>• Ručně vyráběno s láskou k detailu</li>
-                <li>• Skutečné květy konzervované v pryskyřici</li>
-                <li>• Hypoalergenní materiály</li>
-                <li>• Každý kus je jedinečný</li>
-                <li>• Dodáváno v elegantním balení</li>
+              <ul className="space-y-4 text-muted">
+                <li className="flex items-center">
+                  <span className="text-accent mr-3">•</span>
+                  <span>Ručně vyráběno s láskou k detailu</span>
+                </li>
+                <li className="flex items-center">
+                  <span className="text-accent mr-3">•</span>
+                  <span>Skutečné květy konzervované v pryskyřici</span>
+                </li>
+                <li className="flex items-center">
+                  <span className="text-accent mr-3">•</span>
+                  <span>Hypoalergenní materiály</span>
+                </li>
+                <li className="flex items-center">
+                  <span className="text-accent mr-3">•</span>
+                  <span>Každý kus je jedinečný</span>
+                </li>
+                <li className="flex items-center">
+                  <span className="text-accent mr-3">•</span>
+                  <span>Dodáváno v elegantním balení</span>
+                </li>
               </ul>
             </div>
           </div>
         </div>
 
         {/* Related Products */}
-        <div className="mt-16 pt-16 border-t border-gray-200">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+        <div className="mt-24 pt-16 border-t border-border">
+          <h2 className="text-4xl font-bold text-text mb-12 text-center">
             Mohlo by se vám líbit
           </h2>
           
