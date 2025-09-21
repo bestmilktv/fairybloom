@@ -1,7 +1,4 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import ProductCard from '@/components/ProductCard';
 
 // Mock product data - in a real app, this would come from Shopify
 const products = [
@@ -64,39 +61,15 @@ export default function NecklacesPage() {
         {/* Products Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.map((product) => (
-            <Link key={product.id} href={`/product/${product.id}`}>
-              <Card className="group cursor-pointer hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                <div className="aspect-square overflow-hidden rounded-t-lg bg-gray-100">
-                  <Image
-                    src={product.image}
-                    alt={product.title}
-                    width={400}
-                    height={400}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-gray-700 transition-colors">
-                    {product.title}
-                  </h3>
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                    {product.description}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xl font-bold text-gray-900">
-                      {product.price}
-                    </span>
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    >
-                      Zobrazit
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
+            <ProductCard
+              key={product.id}
+              id={product.id}
+              title={product.title}
+              price={product.price}
+              image={product.image}
+              description={product.description}
+              href={`/product/${product.id}`}
+            />
           ))}
         </div>
       </div>

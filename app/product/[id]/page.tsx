@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { ArrowLeft, Heart, Plus, Minus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import ProductCard from '@/components/ProductCard';
 
 // Mock product data - in a real app, this would come from Shopify
 const allProducts = {
@@ -331,39 +332,15 @@ export default function ProductPage({ params }: ProductPageProps) {
               .filter(p => p.category === product.category && p.id !== product.id)
               .slice(0, 3)
               .map((relatedProduct) => (
-                <Link key={relatedProduct.id} href={`/product/${relatedProduct.id}`}>
-                  <Card className="group cursor-pointer hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                    <div className="aspect-square overflow-hidden rounded-t-lg bg-gray-100">
-                      <Image
-                        src={relatedProduct.images[0]}
-                        alt={relatedProduct.title}
-                        width={400}
-                        height={400}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                    <CardContent className="p-6">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-gray-700 transition-colors">
-                        {relatedProduct.title}
-                      </h3>
-                      <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                        {relatedProduct.shortDescription}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <span className="text-xl font-bold text-gray-900">
-                          {relatedProduct.price}
-                        </span>
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        >
-                          Zobrazit
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
+                <ProductCard
+                  key={relatedProduct.id}
+                  id={relatedProduct.id}
+                  title={relatedProduct.title}
+                  price={relatedProduct.price}
+                  image={relatedProduct.images[0]}
+                  description={relatedProduct.shortDescription}
+                  href={`/product/${relatedProduct.id}`}
+                />
               ))}
           </div>
         </div>

@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Hero from '@/components/Hero';
+import ProductCard from '@/components/ProductCard';
 
 // Featured products for homepage
 const featuredProducts = [
@@ -98,39 +99,15 @@ export default function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {featuredProducts.map((product) => (
-            <Link key={product.id} href={`/product/${product.id}`}>
-              <Card className="group cursor-pointer hover:shadow-soft transition-all duration-300 transform hover:-translate-y-1 bg-surface border-border">
-                <div className="aspect-square overflow-hidden rounded-t-2xl bg-surface">
-                  <Image
-                    src={product.image}
-                    alt={product.title}
-                    width={400}
-                    height={400}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold text-text mb-2 group-hover:text-muted transition-colors">
-                    {product.title}
-                  </h3>
-                  <p className="text-muted text-sm mb-4 line-clamp-2">
-                    {product.description}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xl font-bold text-text">
-                      {product.price}
-                    </span>
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 border-border text-muted hover:text-text"
-                    >
-                      Zobrazit
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
+            <ProductCard
+              key={product.id}
+              id={product.id}
+              title={product.title}
+              price={product.price}
+              image={product.image}
+              description={product.description}
+              href={`/product/${product.id}`}
+            />
           ))}
         </div>
       </div>
