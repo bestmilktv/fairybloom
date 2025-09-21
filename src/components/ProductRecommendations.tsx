@@ -1,6 +1,4 @@
 import React from 'react'
-import { useCart } from '@/contexts/CartContext'
-import { useToast } from '@/hooks/use-toast'
 import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
 
@@ -39,9 +37,6 @@ interface ProductRecommendationsProps {
 }
 
 export function ProductRecommendations({ currentProductId, currentCategory }: ProductRecommendationsProps) {
-  const { addToCart } = useCart()
-  const { toast } = useToast()
-
   // Get recommendations (same category first, then others, excluding current product)
   const getRecommendations = () => {
     const products = Object.values(allProducts).filter(p => p.id !== currentProductId)
@@ -57,20 +52,8 @@ export function ProductRecommendations({ currentProductId, currentCategory }: Pr
   const handleAddToCart = (product: Product, event: React.MouseEvent) => {
     event.preventDefault() // Prevent Link navigation
     
-    const priceNumber = parseInt(product.price.replace(/[^\d]/g, ''))
-    
-    addToCart({
-      id: product.id,
-      name: product.title,
-      price: priceNumber,
-      image: product.image,
-      category: product.category,
-    })
-    
-    toast({
-      title: "Přidáno do košíku",
-      description: `${product.title} byl přidán do vašeho košíku.`,
-    })
+    // For now, just show a simple alert since we removed cart functionality
+    alert(`${product.title} byl přidán do košíku!`)
   }
 
   if (recommendations.length === 0) return null

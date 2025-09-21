@@ -4,8 +4,6 @@ import { ArrowLeft, Heart } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { useCart } from '@/contexts/CartContext';
-import { useToast } from '@/hooks/use-toast';
 import { ProductRecommendations } from '@/components/ProductRecommendations';
 
 // Import product images
@@ -16,8 +14,6 @@ import braceletImage from '@/assets/bracelet-placeholder.jpg';
 
 const ProductDetailPage = () => {
   const { productId } = useParams<{ productId: string }>();
-  const { addToCart } = useCart();
-  const { toast } = useToast();
   const [selectedImage, setSelectedImage] = useState(0);
   const [animatingToCart, setAnimatingToCart] = useState(false);
   const productImageRef = useRef<HTMLImageElement>(null);
@@ -36,7 +32,7 @@ const ProductDetailPage = () => {
       price: '2 890 Kč',
       images: [necklaceImage, necklaceImage, necklaceImage],
       category: 'Náhrdelníky',
-      categoryPath: '/nahrdelníky',
+      categoryPath: '/náhrdelníky',
       shortDescription: 'Jemný náhrdelník s růžovými okvětními lístky v průzračné pryskyřici.',
       fullDescription: 'Tento jedinečný náhrdelník zachycuje křehkou krásu růžových okvětních lístků v průzračné pryskyřici nejvyšší kvality. Každý kousek je ručně vyráběn s láskou k detailu, přičemž skutečné květy jsou pečlivě vybírány a konzervovány v dokonalém stavu. Náhrdelník je dodáván s elegantním řetízkem z chirurgické oceli a je ideální pro každodenní nošení i speciální příležitosti.'
     },
@@ -46,7 +42,7 @@ const ProductDetailPage = () => {
       price: '3 200 Kč',
       images: [necklaceImage, necklaceImage],
       category: 'Náhrdelníky',
-      categoryPath: '/nahrdelníky',
+      categoryPath: '/náhrdelníky',
       shortDescription: 'Minimalistický design s jemnou kapradinou z českých lesů.',
       fullDescription: 'Inspirovaný klidem českých lesů, tento náhrdelník obsahuje jemné listy kapradiny zachycené v čisté pryskyřici. Minimalistický design zdůrazňuje přírodní krásu a organické tvary rostliny. Perfektní volba pro milovníky přírody a jednoduché elegance.'
     },
@@ -56,7 +52,7 @@ const ProductDetailPage = () => {
       price: '2 650 Kč',
       images: [necklaceImage],
       category: 'Náhrdelníky',
-      categoryPath: '/nahrdelníky',
+      categoryPath: '/náhrdelníky',
       shortDescription: 'Barevná směs lučních květů zachycená v elegantním náhrdelníku.',
       fullDescription: 'Zachycuje podstatu letní louky s pestrou směsí drobných lučních květů. Každý náhrdelník je jedinečný díky přirozené variabilitě květů. Barvy se pohybují od jemných bílých a žlutých po sytější modré a fialové tóny.'
     },
@@ -67,7 +63,7 @@ const ProductDetailPage = () => {
       price: '1 890 Kč',
       images: [earringsImage, earringsImage],
       category: 'Náušnice',
-      categoryPath: '/nausnice',
+      categoryPath: '/náušnice',
       shortDescription: 'Drobné náušnice s modrými pomněnkami v kapkovitém tvaru.',
       fullDescription: 'Tyto půvabné náušnice ve tvaru kapky obsahují skutečné modré pomněnky - symbol věrné lásky a vzpomínek. Kapkovitý tvar dokonale doplňuje jemnost květů a vytváří elegantní doplněk vhodný pro každý den.'
     },
@@ -77,7 +73,7 @@ const ProductDetailPage = () => {
       price: '2 100 Kč',
       images: [earringsImage],
       category: 'Náušnice',
-      categoryPath: '/nausnice',
+      categoryPath: '/náušnice',
       shortDescription: 'Kruhové náušnice se žlutými květy a zlatými akcenty.',
       fullDescription: 'Slunečné kruhové náušnice ozdobené skutečnými žlutými květy a jemnými zlatými akcenty. Přinášejí teplo a radost do každého dne a dokonale doplňují jak casualové, tak elegantní outfity.'
     },
@@ -87,7 +83,7 @@ const ProductDetailPage = () => {
       price: '1 750 Kč',
       images: [earringsImage],
       category: 'Náušnice',
-      categoryPath: '/nausnice',
+      categoryPath: '/náušnice',
       shortDescription: 'Minimalistické náušnice s drobnými bílými květy.',
       fullDescription: 'Čisté a minimalistické náušnice s drobnými bílými květy symbolizují nevinnost a čistotu. Ideální pro nevěsty nebo pro ty, kteří preferují jemné a nenápadné šperky.'
     },
@@ -129,7 +125,7 @@ const ProductDetailPage = () => {
       price: '2 400 Kč',
       images: [braceletImage, braceletImage],
       category: 'Náramky',
-      categoryPath: '/naramky',
+      categoryPath: '/náramky',
       shortDescription: 'Široký náramek s různobarevnými zahradními květy.',
       fullDescription: 'Široký náramek zachycující krásu zahradních květů v plném rozkvětu. Pestrobarevná kompozice zahrnuje růže, tulipány, narcisy a další oblíbené zahradní květiny. Dokonalé pro milovníky barev a výrazných doplňků.'
     },
@@ -139,7 +135,7 @@ const ProductDetailPage = () => {
       price: '2 100 Kč',
       images: [braceletImage],
       category: 'Náramky',
-      categoryPath: '/naramky',
+      categoryPath: '/náramky',
       shortDescription: 'Náramek inspirovaný procházkou lesem s kapradinami a mechem.',
       fullDescription: 'Tento náramek vás přenese na klidnou procházku lesní stezkou. Obsahuje kapradiny, mech a další lesní rostliny v zemitých zelených tónech. Ideální pro ty, kteří hledají spojení s přírodou.'
     },
@@ -149,7 +145,7 @@ const ProductDetailPage = () => {
       price: '2 650 Kč',
       images: [braceletImage],
       category: 'Náramky',
-      categoryPath: '/naramky',
+      categoryPath: '/náramky',
       shortDescription: 'Elegantní náramek s levandulí a stříbrnými detaily.',
       fullDescription: 'Elegantní náramek s větvičkami skutečné levandule a jemnými stříbrnými akcenty. Levandule je známá svými uklidňujícími vlastnostmi a krásnou fialovou barvou. Náramek je nejen krásný, ale také jemně vonný.'
     }
@@ -209,21 +205,9 @@ const ProductDetailPage = () => {
       }
     }
     
-    // Parse price to number (remove "Kč" and spaces, convert to number)
-    const priceNumber = parseInt(product.price.replace(/[^\d]/g, ''));
-    
-    addToCart({
-      id: product.id,
-      name: product.title,
-      price: priceNumber,
-      image: product.images[0],
-      category: product.category,
-    });
-    
-    toast({
-      title: "Přidáno do košíku",
-      description: `${product.title} byl přidán do vašeho košíku.`,
-    });
+    // For now, just show a simple alert since we removed cart functionality
+    alert(`${product.title} byl přidán do košíku!`);
+    setAnimatingToCart(false);
   };
 
   if (!product) {

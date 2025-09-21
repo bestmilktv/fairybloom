@@ -1,74 +1,109 @@
-# Welcome to your Lovable project
+# Fairy Bloom - Shopify Headless Ecommerce Frontend
 
-## Project info
+A beautiful, modern frontend for your Shopify headless ecommerce store, built with React, TypeScript, and Tailwind CSS.
 
-**URL**: https://lovable.dev/projects/3b7db69f-fa3c-4408-b144-94b5f8743d64
+## ✨ Features
 
-## How can I edit this code?
+- **Shopify Integration**: Ready-to-use Shopify Storefront API integration
+- **Modern UI**: Beautiful, responsive design with smooth animations
+- **Czech Language**: Fully localized in Czech
+- **Product Showcase**: Elegant product display with categories
+- **Mobile Responsive**: Works perfectly on all devices
+- **Fast Performance**: Optimized for speed and SEO
 
-There are several ways of editing your application.
+## 🚀 Quick Start
 
-**Use Lovable**
+1. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/3b7db69f-fa3c-4408-b144-94b5f8743d64) and start prompting.
+2. **Configure Shopify**:
+   - Update your Shopify credentials in `src/pages/index.js`:
+     ```javascript
+     const SHOPIFY_STORE_DOMAIN = 'your-shop.myshopify.com';
+     const SHOPIFY_STOREFRONT_ACCESS_TOKEN = 'your-storefront-access-token';
+     ```
 
-Changes made via Lovable will be committed automatically to this repo.
+3. **Start development server**:
+   ```bash
+   npm run dev
+   ```
 
-**Use your preferred IDE**
+4. **Build for production**:
+   ```bash
+   npm run build
+   ```
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 📁 Project Structure
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+src/
+├── pages/
+│   ├── Index.tsx          # Homepage with product categories
+│   ├── CategoryPage.tsx   # Category product listings
+│   ├── ProductDetailPage.tsx # Individual product pages
+│   ├── NotFound.tsx       # 404 page
+│   └── index.js           # Shopify products page
+├── components/
+│   ├── Navigation.tsx     # Main navigation
+│   ├── Hero.tsx          # Hero section
+│   ├── ProductSection.tsx # Product grid sections
+│   ├── ProductCard.tsx   # Individual product cards
+│   ├── Footer.tsx        # Site footer
+│   └── ui/               # Reusable UI components
+├── assets/               # Images and static assets
+└── hooks/               # Custom React hooks
 ```
 
-**Edit a file directly in GitHub**
+## 🛍️ Shopify Setup
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+1. **Get your Storefront Access Token**:
+   - Go to your Shopify Admin
+   - Navigate to Apps > App and sales channel settings
+   - Create a private app or use the Storefront API
+   - Copy your Storefront Access Token
 
-**Use GitHub Codespaces**
+2. **Update the configuration**:
+   - Open `src/pages/index.js`
+   - Replace the placeholder values with your actual Shopify credentials
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 🎨 Customization
 
-## What technologies are used for this project?
+- **Colors**: Update the color scheme in `tailwind.config.ts`
+- **Content**: Modify text content directly in the component files
+- **Styling**: All styles use Tailwind CSS classes
+- **Images**: Replace placeholder images in `src/assets/`
 
-This project is built with:
+## 📱 Pages
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- **Homepage** (`/`): Product categories and featured content
+- **Categories** (`/náhrdelníky`, `/náušnice`, etc.): Product listings by category
+- **Product Details** (`/product/:id`): Individual product pages
+- **Shopify Products** (`/shopify`): Direct Shopify integration page
 
-## How can I deploy this project?
+## 🚀 Deployment
 
-Simply open [Lovable](https://lovable.dev/projects/3b7db69f-fa3c-4408-b144-94b5f8743d64) and click on Share -> Publish.
+This project is ready to deploy to any static hosting service:
 
-## Can I connect a custom domain to my Lovable project?
+- **Vercel**: Connect your GitHub repository
+- **Netlify**: Drag and drop the `dist` folder
+- **GitHub Pages**: Use GitHub Actions for automatic deployment
 
-Yes, you can!
+## 🛠️ Technologies Used
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+- **React 18** - UI framework
+- **TypeScript** - Type safety
+- **Tailwind CSS** - Styling
+- **Vite** - Build tool
+- **React Router** - Navigation
+- **Shopify Storefront API** - Ecommerce integration
+- **Lucide React** - Icons
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
-# Fairy-Bloom-cz
+## 📄 License
+
+This project is private and proprietary to Fairy Bloom.
+
+---
+
+Built with ❤️ for Fairy Bloom Czech Republic

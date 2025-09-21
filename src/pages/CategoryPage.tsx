@@ -2,7 +2,6 @@ import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import Navigation from '@/components/Navigation';
 import CategoryProductSection from '@/components/CategoryProductSection';
-import EditableText from '@/components/EditableText';
 import Footer from '@/components/Footer';
 
 // Import product images
@@ -208,19 +207,12 @@ const CategoryPage = () => {
       {/* Category Header */}
       <section className="pt-32 pb-16 px-6">
         <div className="max-w-7xl mx-auto text-center">
-          <EditableText
-            id={`${decodedCategory}-title`}
-            text={categoryData.title}
-            as="h1"
-            className="text-5xl md:text-6xl font-serif font-bold text-luxury mb-6 tracking-wide"
-          />
-          <EditableText
-            id={`${decodedCategory}-subtitle`}
-            text={categoryData.subtitle}
-            as="p"
-            className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
-            multiline
-          />
+          <h1 className="text-5xl md:text-6xl font-serif font-bold text-luxury mb-6 tracking-wide">
+            {categoryData.title}
+          </h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            {categoryData.subtitle}
+          </p>
         </div>
       </section>
 
