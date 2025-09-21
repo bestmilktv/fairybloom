@@ -80,12 +80,13 @@ export default function CartSidebar({
     <AnimatePresence>
       {isOpen && (
         <>
+          {/* UI: cart styling only */}
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
+            className="fixed inset-0 bg-black/30 backdrop-blur-md z-40"
             onClick={onClose}
           />
           
@@ -95,16 +96,16 @@ export default function CartSidebar({
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl z-50 flex flex-col"
+            className="fixed right-0 top-0 h-full w-full max-w-[420px] bg-surface shadow-2xl z-50 flex flex-col rounded-l-2xl"
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-6 border-b border-gray-100">
-              <h2 className="text-xl font-semibold text-gray-900">Your Cart</h2>
+            <div className="flex items-center justify-between p-6 border-b border-border">
+              <h2 className="text-2xl font-semibold text-text">Your Cart</h2>
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={onClose}
-                className="text-gray-400 hover:text-gray-600 hover:bg-gray-100"
+                className="text-muted hover:text-text hover:bg-surface rounded-xl"
               >
                 <X className="h-5 w-5" />
               </Button>
@@ -113,71 +114,80 @@ export default function CartSidebar({
             {/* Content */}
             <div className="flex-1 overflow-y-auto p-6">
               {items.length === 0 ? (
-                <div className="flex flex-col items-center justify-center h-full text-center">
-                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-                    <ShoppingCart className="h-8 w-8 text-gray-400" />
+                <div className="flex flex-col items-center justify-center h-full text-center space-y-6">
+                  <div className="w-20 h-20 bg-muted/20 rounded-2xl flex items-center justify-center">
+                    <ShoppingCart className="h-10 w-10 text-muted" />
                   </div>
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">Your cart is empty</h3>
-                  <p className="text-gray-500">Add some items to get started</p>
+                  <div className="space-y-2">
+                    <h3 className="text-xl font-medium text-text">Your cart is empty</h3>
+                    <p className="text-muted">Add some beautiful jewelry to get started</p>
+                  </div>
+                  <Button
+                    onClick={onClose}
+                    className="bg-accent hover:bg-accent/90 text-white px-6 py-3 rounded-xl"
+                  >
+                    Continue Shopping
+                  </Button>
                 </div>
               ) : (
                 <div className="space-y-4">
                   {items.map((item) => (
-                    <Card key={item.id} className="border-gray-100">
-                      <CardContent className="p-4">
-                        <div className="flex items-center space-x-4">
-                          {/* Product Image */}
-                          <div className="w-16 h-16 bg-gray-100 rounded-lg flex-shrink-0">
-                            {item.image ? (
-                              <Image
-                                src={item.image}
-                                alt={item.name}
-                                width={64}
-                                height={64}
-                                className="w-full h-full object-cover rounded-lg"
-                              />
-                            ) : (
-                              <div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center">
-                                <span className="text-gray-400 text-xs">No image</span>
-                              </div>
-                            )}
-                          </div>
-
-                          {/* Product Details */}
-                          <div className="flex-1 min-w-0">
-                            <h3 className="text-sm font-medium text-gray-900 truncate">
-                              {item.name}
-                            </h3>
-                            <p className="text-sm text-gray-500">
-                              {formatPrice(item.price)}
-                            </p>
-                          </div>
-
-                          {/* Quantity Controls */}
-                          <div className="flex items-center space-x-2">
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              onClick={() => onUpdateQuantity(item.id, Math.max(0, item.quantity - 1))}
-                              className="h-8 w-8 text-gray-400 hover:text-gray-600"
-                            >
-                              <Minus className="h-3 w-3" />
-                            </Button>
-                            <span className="text-sm font-medium text-gray-900 min-w-[20px] text-center">
-                              {item.quantity}
-                            </span>
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
-                              className="h-8 w-8 text-gray-400 hover:text-gray-600"
-                            >
-                              <Plus className="h-3 w-3" />
-                            </Button>
-                          </div>
+                    <div key={item.id} className="bg-bg rounded-2xl p-4 border border-border">
+                      <div className="flex items-center gap-4">
+                        {/* Product Image */}
+                        <div className="w-16 h-16 bg-surface rounded-xl flex-shrink-0 overflow-hidden">
+                          {item.image ? (
+                            <Image
+                              src={item.image}
+                              alt={item.name}
+                              width={64}
+                              height={64}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-muted/20 rounded-xl flex items-center justify-center">
+                              <span className="text-muted text-xs">No image</span>
+                            </div>
+                          )}
                         </div>
-                      </CardContent>
-                    </Card>
+
+                        {/* Product Details */}
+                        <div className="flex-1 min-w-0 space-y-1">
+                          <h3 className="text-sm font-medium text-text truncate">
+                            {item.name}
+                          </h3>
+                          <p className="text-sm text-muted">
+                            {formatPrice(item.price)} each
+                          </p>
+                          <p className="text-sm font-semibold text-text">
+                            {formatPrice(item.price * item.quantity)}
+                          </p>
+                        </div>
+
+                        {/* Quantity Controls */}
+                        <div className="flex items-center gap-2">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => onUpdateQuantity(item.id, Math.max(0, item.quantity - 1))}
+                            className="h-8 w-8 text-muted hover:text-text hover:bg-surface rounded-lg"
+                          >
+                            <Minus className="h-3 w-3" />
+                          </Button>
+                          <span className="text-sm font-medium text-text min-w-[20px] text-center">
+                            {item.quantity}
+                          </span>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
+                            className="h-8 w-8 text-muted hover:text-text hover:bg-surface rounded-lg"
+                          >
+                            <Plus className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
                   ))}
                 </div>
               )}
@@ -185,18 +195,18 @@ export default function CartSidebar({
 
             {/* Footer */}
             {items.length > 0 && (
-              <div className="border-t border-gray-100 p-6 space-y-4">
-                <div className="flex justify-between items-center text-lg font-semibold">
-                  <span>Total ({totalItems} items)</span>
-                  <span>{formatPrice(totalPrice)}</span>
+              <div className="border-t border-border p-6 space-y-6">
+                <div className="flex justify-between items-center text-xl font-semibold">
+                  <span className="text-text">Total ({totalItems} items)</span>
+                  <span className="text-text">{formatPrice(totalPrice)}</span>
                 </div>
                 
                 <Button
                   onClick={handleCheckout}
                   disabled={isLoading}
-                  className="w-full bg-black hover:bg-gray-800 text-white h-12 text-base font-medium"
+                  className="w-full bg-accent hover:bg-accent/90 text-white h-14 text-lg font-medium rounded-2xl shadow-soft"
                 >
-                  {isLoading ? 'Processing...' : 'Checkout'}
+                  {isLoading ? 'Processing...' : 'Proceed to Checkout'}
                 </Button>
               </div>
             )}

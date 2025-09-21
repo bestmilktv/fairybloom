@@ -1,69 +1,69 @@
 {
   "pages": {
     "/_not-found": [
-      "static/chunks/webpack-fbeae92b6c4e39e9.js",
+      "static/chunks/webpack-f2a4e35bedded217.js",
       "static/chunks/fd9d1056-15fd34ba6cdcb612.js",
       "static/chunks/472-529404580bcc0d8f.js",
       "static/chunks/main-app-3e9e03cca46aef18.js",
       "static/chunks/app/_not-found-9af4d72a51c33fc2.js"
     ],
     "/layout": [
-      "static/chunks/webpack-fbeae92b6c4e39e9.js",
+      "static/chunks/webpack-f2a4e35bedded217.js",
       "static/chunks/fd9d1056-15fd34ba6cdcb612.js",
       "static/chunks/472-529404580bcc0d8f.js",
       "static/chunks/main-app-3e9e03cca46aef18.js",
       "static/chunks/375-3527dbbcb86b7c54.js",
       "static/chunks/253-39ca791ddaaf97b1.js",
-      "static/css/e3cf90ed8be329d2.css",
-      "static/chunks/app/layout-3b78527bf67658b9.js"
+      "static/css/22478a0fff0dc7c5.css",
+      "static/chunks/app/layout-83c9c5106ead5130.js"
     ],
     "/náhrdelníky/page": [
-      "static/chunks/webpack-fbeae92b6c4e39e9.js",
+      "static/chunks/webpack-f2a4e35bedded217.js",
       "static/chunks/fd9d1056-15fd34ba6cdcb612.js",
       "static/chunks/472-529404580bcc0d8f.js",
       "static/chunks/main-app-3e9e03cca46aef18.js",
       "static/chunks/375-3527dbbcb86b7c54.js",
-      "static/chunks/app/náhrdelníky/page-fba03ceaa42a92e7.js"
-    ],
-    "/page": [
-      "static/chunks/webpack-fbeae92b6c4e39e9.js",
-      "static/chunks/fd9d1056-15fd34ba6cdcb612.js",
-      "static/chunks/472-529404580bcc0d8f.js",
-      "static/chunks/main-app-3e9e03cca46aef18.js",
-      "static/chunks/375-3527dbbcb86b7c54.js",
-      "static/chunks/app/page-660ebf8f4a6e61c3.js"
-    ],
-    "/product/[id]/page": [
-      "static/chunks/webpack-fbeae92b6c4e39e9.js",
-      "static/chunks/fd9d1056-15fd34ba6cdcb612.js",
-      "static/chunks/472-529404580bcc0d8f.js",
-      "static/chunks/main-app-3e9e03cca46aef18.js",
-      "static/chunks/375-3527dbbcb86b7c54.js",
-      "static/chunks/app/product/[id]/page-98094f67a3185106.js"
-    ],
-    "/náušnice/page": [
-      "static/chunks/webpack-fbeae92b6c4e39e9.js",
-      "static/chunks/fd9d1056-15fd34ba6cdcb612.js",
-      "static/chunks/472-529404580bcc0d8f.js",
-      "static/chunks/main-app-3e9e03cca46aef18.js",
-      "static/chunks/375-3527dbbcb86b7c54.js",
-      "static/chunks/app/náušnice/page-6e95887cda8367f0.js"
-    ],
-    "/prsteny/page": [
-      "static/chunks/webpack-fbeae92b6c4e39e9.js",
-      "static/chunks/fd9d1056-15fd34ba6cdcb612.js",
-      "static/chunks/472-529404580bcc0d8f.js",
-      "static/chunks/main-app-3e9e03cca46aef18.js",
-      "static/chunks/375-3527dbbcb86b7c54.js",
-      "static/chunks/app/prsteny/page-b3160b2a064b4e2f.js"
+      "static/chunks/app/náhrdelníky/page-487e8d5ff5991b41.js"
     ],
     "/náramky/page": [
-      "static/chunks/webpack-fbeae92b6c4e39e9.js",
+      "static/chunks/webpack-f2a4e35bedded217.js",
       "static/chunks/fd9d1056-15fd34ba6cdcb612.js",
       "static/chunks/472-529404580bcc0d8f.js",
       "static/chunks/main-app-3e9e03cca46aef18.js",
       "static/chunks/375-3527dbbcb86b7c54.js",
-      "static/chunks/app/náramky/page-0560d53f04ba034c.js"
+      "static/chunks/app/náramky/page-f44dba8f9808d850.js"
+    ],
+    "/náušnice/page": [
+      "static/chunks/webpack-f2a4e35bedded217.js",
+      "static/chunks/fd9d1056-15fd34ba6cdcb612.js",
+      "static/chunks/472-529404580bcc0d8f.js",
+      "static/chunks/main-app-3e9e03cca46aef18.js",
+      "static/chunks/375-3527dbbcb86b7c54.js",
+      "static/chunks/app/náušnice/page-46f00fb83cbf0eea.js"
+    ],
+    "/prsteny/page": [
+      "static/chunks/webpack-f2a4e35bedded217.js",
+      "static/chunks/fd9d1056-15fd34ba6cdcb612.js",
+      "static/chunks/472-529404580bcc0d8f.js",
+      "static/chunks/main-app-3e9e03cca46aef18.js",
+      "static/chunks/375-3527dbbcb86b7c54.js",
+      "static/chunks/app/prsteny/page-68918312312c77db.js"
+    ],
+    "/page": [
+      "static/chunks/webpack-f2a4e35bedded217.js",
+      "static/chunks/fd9d1056-15fd34ba6cdcb612.js",
+      "static/chunks/472-529404580bcc0d8f.js",
+      "static/chunks/main-app-3e9e03cca46aef18.js",
+      "static/chunks/375-3527dbbcb86b7c54.js",
+      "static/chunks/app/page-2a37edad9110d322.js"
+    ],
+    "/product/[id]/page": [
+      "static/chunks/webpack-f2a4e35bedded217.js",
+      "static/chunks/fd9d1056-15fd34ba6cdcb612.js",
+      "static/chunks/472-529404580bcc0d8f.js",
+      "static/chunks/main-app-3e9e03cca46aef18.js",
+      "static/chunks/375-3527dbbcb86b7c54.js",
+      "static/chunks/app/product/[id]/page-bc2596b1b614ee8b.js"
     ]
   }
 }
