@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -62,10 +63,11 @@ export default function Slideshow({
         >
           {/* Background Image */}
           <div className="absolute inset-0">
-            <img
+            <Image
               src={slide.image}
               alt={slide.title}
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
           </div>
