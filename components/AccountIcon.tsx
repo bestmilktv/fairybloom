@@ -19,7 +19,7 @@ export default function AccountIcon({ className = '' }: AccountIconProps) {
       variant="ghost"
       size="icon"
       onClick={handleAccountClick}
-      className={`text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors duration-200 ${className}`}
+      className={`text-text-secondary hover:text-text hover:bg-surface/50 transition-all duration-300 rounded-xl ${className}`}
       aria-label="Account"
     >
       <User className="h-5 w-5" />

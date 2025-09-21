@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -6,20 +8,31 @@ import ProductCard from '@/components/ProductCard';
 import Slideshow from '@/components/Slideshow';
 import Newsletter from '@/components/Newsletter';
 import Footer from '@/components/Footer';
-import { getProducts, formatPrice, getFirstImageUrl, ShopifyProduct } from '@/lib/shopify';
+import { getProducts, formatPrice, getFirstImageUrl, getFirstVariant, ShopifyProduct } from '@/lib/shopify';
+import { useCart } from '@/contexts/CartContext';
+import { useState, useEffect } from 'react';
 
-export default async function Home() {
-  // Fetch featured products from Shopify
-  let featuredProducts: ShopifyProduct[] = [];
-  let error: string | null = null;
+export default function Home() {
+  const [featuredProducts, setFeaturedProducts] = useState<ShopifyProduct[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const { addToCart } = useCart();
 
-  try {
-    const data = await getProducts(8); // Fetch first 8 products
-    featuredProducts = data.edges.map((edge: { node: ShopifyProduct }) => edge.node);
-  } catch (err) {
-    console.error('Failed to fetch products:', err);
-    error = err instanceof Error ? err.message : 'Failed to fetch products';
-  }
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const data = await getProducts(8); // Fetch first 8 products
+        setFeaturedProducts(data.edges.map((edge: { node: ShopifyProduct }) => edge.node));
+      } catch (err) {
+        console.error('Failed to fetch products:', err);
+        setError(err instanceof Error ? err.message : 'Failed to fetch products');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   // Slideshow data for announcements
   const slideshowData = [
@@ -35,7 +48,7 @@ export default async function Home() {
       id: '2',
       title: 'Nové přírůstky',
       subtitle: 'Objevte naši nejnovější kolekci jarních šperků s prvosenkami a fialkami.',
-      image: '/placeholder-necklace.jpg',
+      image: '/hero-jewelry.jpg',
       ctaText: 'Zobrazit novinky',
       ctaLink: '/náušnice'
     }
@@ -153,19 +166,31 @@ export default async function Home() {
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gap-lg mb-gap-2xl">
-                {featuredProducts.slice(0, 4).map((product) => (
-                  <ProductCard
-                    key={product.id}
-                    id={product.id}
-                    title={product.title}
-                    price={formatPrice(product.priceRange.minVariantPrice)}
-                    image={getFirstImageUrl(product)}
-                    description={product.description || 'Elegantní šperk z naší kolekce'}
-                    href={`/product/${product.handle}`}
-                  />
-                ))}
-              </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gap-lg mb-gap-2xl">
+                    {featuredProducts.slice(0, 4).map((product) => {
+                      const firstVariant = getFirstVariant(product);
+                      return (
+                        <ProductCard
+                          key={product.id}
+                          id={product.id}
+                          title={product.title}
+                          price={formatPrice(product.priceRange.minVariantPrice)}
+                          image={getFirstImageUrl(product)}
+                          description={product.description || 'Elegantní šperk z naší kolekce'}
+                          href={`/product/${product.handle}`}
+                          variantId={firstVariant?.id}
+                          onAddToCart={(variantId, quantity) => {
+                            addToCart(variantId, quantity, {
+                              id: product.id,
+                              title: product.title,
+                              price: parseFloat(product.priceRange.minVariantPrice.amount),
+                              image: getFirstImageUrl(product)
+                            });
+                          }}
+                        />
+                      );
+                    })}
+                  </div>
               
               <div className="text-center">
                 <Button asChild className="btn-secondary">

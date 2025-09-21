@@ -16,6 +16,8 @@ interface ProductCardProps {
   href: string;
   showButton?: boolean;
   buttonText?: string;
+  variantId?: string;
+  onAddToCart?: (variantId: string, quantity: number) => void;
 }
 
 export default function ProductCard({
@@ -26,7 +28,9 @@ export default function ProductCard({
   description,
   href,
   showButton = true,
-  buttonText = "Zobrazit"
+  buttonText = "Zobrazit",
+  variantId,
+  onAddToCart
 }: ProductCardProps) {
   return (
     <motion.div
@@ -61,15 +65,31 @@ export default function ProductCard({
               <span className="text-xl font-serif font-bold text-text">
                 {price}
               </span>
-              {showButton && (
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  className="opacity-0 group-hover:opacity-100 transition-all duration-500 border-accent/30 text-accent hover:text-white hover:bg-accent hover:border-accent transform translate-y-2 group-hover:translate-y-0"
-                >
-                  {buttonText}
-                </Button>
-              )}
+              <div className="flex gap-2">
+                {variantId && onAddToCart && (
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      onAddToCart(variantId, 1);
+                    }}
+                    className="opacity-0 group-hover:opacity-100 transition-all duration-500 border-accent/30 text-accent hover:text-white hover:bg-accent hover:border-accent transform translate-y-2 group-hover:translate-y-0"
+                  >
+                    Přidat do košíku
+                  </Button>
+                )}
+                {showButton && (
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    className="opacity-0 group-hover:opacity-100 transition-all duration-500 border-accent/30 text-accent hover:text-white hover:bg-accent hover:border-accent transform translate-y-2 group-hover:translate-y-0"
+                  >
+                    {buttonText}
+                  </Button>
+                )}
+              </div>
             </div>
           </CardContent>
         </Card>

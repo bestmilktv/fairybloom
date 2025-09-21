@@ -5,55 +5,21 @@ import Link from 'next/link';
 import AccountIcon from './AccountIcon';
 import CartIcon from './CartIcon';
 import CartSidebar from './CartSidebar';
-
-interface CartItem {
-  id: string;
-  variantId: string;
-  name: string;
-  price: number;
-  quantity: number;
-  image?: string;
-}
+import { useCart } from '@/contexts/CartContext';
 
 export default function Navbar() {
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    // Mock data for demonstration
-    {
-      id: '1',
-      variantId: 'gid://shopify/ProductVariant/123456789',
-      name: 'Růžové okvětí náhrdelník',
-      price: 2890,
-      quantity: 1,
-      image: '/placeholder-necklace.jpg'
-    },
-    {
-      id: '2',
-      variantId: 'gid://shopify/ProductVariant/987654321',
-      name: 'Pomněnkové kapky náušnice',
-      price: 1890,
-      quantity: 2,
-      image: '/placeholder-earrings.jpg'
-    }
-  ]);
+  const { items: cartItems, updateQuantity, removeFromCart, getTotalItems } = useCart();
 
-  const handleUpdateQuantity = (id: string, quantity: number) => {
-    if (quantity <= 0) {
-      setCartItems(items => items.filter(item => item.id !== id));
-    } else {
-      setCartItems(items =>
-        items.map(item =>
-          item.id === id ? { ...item, quantity } : item
-        )
-      );
-    }
+  const handleUpdateQuantity = (variantId: string, quantity: number) => {
+    updateQuantity(variantId, quantity);
   };
 
-  const handleRemoveItem = (id: string) => {
-    setCartItems(items => items.filter(item => item.id !== id));
+  const handleRemoveItem = (variantId: string) => {
+    removeFromCart(variantId);
   };
 
-  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const totalItems = getTotalItems();
 
   return (
     <>

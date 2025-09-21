@@ -21,8 +21,8 @@ interface CartSidebarProps {
   isOpen: boolean;
   onClose: () => void;
   items: CartItem[];
-  onUpdateQuantity: (id: string, quantity: number) => void;
-  onRemoveItem: (id: string) => void;
+  onUpdateQuantity: (variantId: string, quantity: number) => void;
+  onRemoveItem: (variantId: string) => void;
 }
 
 export default function CartSidebar({ 
@@ -170,7 +170,7 @@ export default function CartSidebar({
                           <Button
                             variant="ghost"
                             size="icon"
-                            onClick={() => onUpdateQuantity(item.id, Math.max(0, item.quantity - 1))}
+                            onClick={() => onUpdateQuantity(item.variantId, Math.max(0, item.quantity - 1))}
                             className="h-8 w-8 text-muted hover:text-text hover:bg-surface rounded-lg"
                           >
                             <Minus className="h-3 w-3" />
@@ -181,7 +181,7 @@ export default function CartSidebar({
                           <Button
                             variant="ghost"
                             size="icon"
-                            onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
+                            onClick={() => onUpdateQuantity(item.variantId, item.quantity + 1)}
                             className="h-8 w-8 text-muted hover:text-text hover:bg-surface rounded-lg"
                           >
                             <Plus className="h-3 w-3" />

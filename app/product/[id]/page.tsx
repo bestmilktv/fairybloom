@@ -1,3 +1,5 @@
+'use client';
+
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -6,6 +8,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import ProductCard from '@/components/ProductCard';
 import { getProductByHandle, getProducts, formatPrice, getAllImageUrls, getFirstVariant, ShopifyProduct } from '@/lib/shopify';
+import { useCart } from '@/contexts/CartContext';
+import { useState, useEffect } from 'react';
 
 // Helper function to determine category from product title or tags
 function getProductCategory(title: string): { category: string; categoryPath: string } {
@@ -31,30 +35,51 @@ interface ProductPageProps {
   };
 }
 
-export default async function ProductPage({ params }: ProductPageProps) {
+export default function ProductPage({ params }: ProductPageProps) {
   const { id } = params;
-  
-  // Fetch product data from Shopify
-  let product: ShopifyProduct | null = null;
-  let relatedProducts: ShopifyProduct[] = [];
-  let error: string | null = null;
+  const [product, setProduct] = useState<ShopifyProduct | null>(null);
+  const [relatedProducts, setRelatedProducts] = useState<ShopifyProduct[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const { addToCart } = useCart();
 
-  try {
-    product = await getProductByHandle(id);
-    
-    if (!product) {
-      notFound();
-    }
+  useEffect(() => {
+    const fetchProductData = async () => {
+      try {
+        const productData = await getProductByHandle(id);
+        
+        if (!productData) {
+          notFound();
+        }
 
-    // Fetch related products (first 4 products excluding current)
-    const allProductsData = await getProducts(20);
-    relatedProducts = allProductsData.edges
-      .map((edge: { node: ShopifyProduct }) => edge.node)
-      .filter((p: ShopifyProduct) => p.id !== product?.id)
-      .slice(0, 4);
-  } catch (err) {
-    console.error('Failed to fetch product data:', err);
-    error = err instanceof Error ? err.message : 'Failed to fetch product data';
+        setProduct(productData);
+
+        // Fetch related products (first 4 products excluding current)
+        const allProductsData = await getProducts(20);
+        const related = allProductsData.edges
+          .map((edge: { node: ShopifyProduct }) => edge.node)
+          .filter((p: ShopifyProduct) => p.id !== productData?.id)
+          .slice(0, 4);
+        setRelatedProducts(related);
+      } catch (err) {
+        console.error('Failed to fetch product data:', err);
+        setError(err instanceof Error ? err.message : 'Failed to fetch product data');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProductData();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-bg flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-text-secondary">Načítání produktu...</p>
+        </div>
+      </div>
+    );
   }
 
   if (error) {
@@ -150,6 +175,16 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 <Button 
                   size="lg" 
                   className="bg-accent hover:bg-accent/90 text-white px-8 py-4 text-lg font-medium rounded-2xl shadow-soft"
+                  onClick={() => {
+                    if (firstVariant) {
+                      addToCart(firstVariant.id, 1, {
+                        id: product.id,
+                        title: product.title,
+                        price: parseFloat(product.priceRange.minVariantPrice.amount),
+                        image: images[0]
+                      });
+                    }
+                  }}
                 >
                   Přidat do košíku
                 </Button>
@@ -179,17 +214,29 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <div className="pt-10">
             <h2 className="text-3xl font-bold text-text mb-8 text-center">Související produkty</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {relatedProducts.map((relatedProduct) => (
-                <ProductCard
-                  key={relatedProduct.id}
-                  id={relatedProduct.id}
-                  title={relatedProduct.title}
-                  price={formatPrice(relatedProduct.priceRange.minVariantPrice)}
-                  image={getAllImageUrls(relatedProduct)[0] || '/placeholder.svg'}
-                  description={relatedProduct.description || 'Elegantní šperk z naší kolekce'}
-                  href={`/product/${relatedProduct.handle}`}
-                />
-              ))}
+              {relatedProducts.map((relatedProduct) => {
+                const relatedFirstVariant = getFirstVariant(relatedProduct);
+                return (
+                  <ProductCard
+                    key={relatedProduct.id}
+                    id={relatedProduct.id}
+                    title={relatedProduct.title}
+                    price={formatPrice(relatedProduct.priceRange.minVariantPrice)}
+                    image={getAllImageUrls(relatedProduct)[0] || '/placeholder.svg'}
+                    description={relatedProduct.description || 'Elegantní šperk z naší kolekce'}
+                    href={`/product/${relatedProduct.handle}`}
+                    variantId={relatedFirstVariant?.id}
+                    onAddToCart={(variantId, quantity) => {
+                      addToCart(variantId, quantity, {
+                        id: relatedProduct.id,
+                        title: relatedProduct.title,
+                        price: parseFloat(relatedProduct.priceRange.minVariantPrice.amount),
+                        image: getAllImageUrls(relatedProduct)[0]
+                      });
+                    }}
+                  />
+                );
+              })}
             </div>
           </div>
         )}

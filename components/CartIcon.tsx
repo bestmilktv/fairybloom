@@ -15,13 +15,13 @@ export default function CartIcon({ onClick, itemCount = 0, className = '' }: Car
       variant="ghost"
       size="icon"
       onClick={onClick}
-      className={`relative text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors duration-200 ${className}`}
+      className={`relative text-text-secondary hover:text-text hover:bg-surface/50 transition-all duration-300 rounded-xl ${className}`}
       aria-label="Shopping Cart"
     >
       <ShoppingCart className="h-5 w-5" />
       {itemCount > 0 && (
-        <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">
-          {itemCount}
+        <span className="absolute -top-1 -right-1 bg-accent text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium shadow-soft">
+          {itemCount > 99 ? '99+' : itemCount}
         </span>
       )}
     </Button>
