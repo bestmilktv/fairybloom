@@ -1,70 +1,64 @@
 import ProductCard from '@/components/ProductCard';
+import { getCollectionProducts, getProducts, formatPrice, getAllImageUrls, ShopifyProduct } from '@/lib/shopify';
 
-// Mock product data - in a real app, this would come from Shopify
-const products = [
-  {
-    id: 'e1',
-    title: 'Pomněnkové kapky',
-    price: '1 890 Kč',
-    image: '/placeholder-earrings.jpg',
-    description: 'Drobné náušnice s modrými pomněnkami v kapkovitém tvaru.'
-  },
-  {
-    id: 'e2',
-    title: 'Zlaté slunce',
-    price: '2 100 Kč',
-    image: '/placeholder-earrings.jpg',
-    description: 'Kruhové náušnice se žlutými květy a zlatými akcenty.'
-  },
-  {
-    id: 'e3',
-    title: 'Bílá čistota',
-    price: '1 750 Kč',
-    image: '/placeholder-earrings.jpg',
-    description: 'Minimalistické náušnice s drobnými bílými květy.'
-  },
-  {
-    id: 'e4',
-    title: 'Levandulové sny',
-    price: '1 950 Kč',
-    image: '/placeholder-earrings.jpg',
-    description: 'Dlouhé náušnice s větvičkami levandule.'
-  },
-  {
-    id: 'e5',
-    title: 'Růžový úsvit',
-    price: '2 200 Kč',
-    image: '/placeholder-earrings.jpg',
-    description: 'Jemné náušnice s růžovými květy sakury.'
+export default async function EarringsPage() {
+  // Try to fetch from collection first, fallback to all products
+  let products: ShopifyProduct[] = [];
+  let error: string | null = null;
+
+  try {
+    // Try to get products from 'earrings' collection
+    const collectionData = await getCollectionProducts('earrings', 20);
+    products = collectionData.products.edges.map((edge: { node: ShopifyProduct }) => edge.node);
+  } catch (collectionError) {
+    console.log('Collection not found, trying all products...');
+    try {
+      // Fallback to all products and filter by title
+      const allProductsData = await getProducts(50);
+      products = allProductsData.edges
+        .map((edge: { node: ShopifyProduct }) => edge.node)
+        .filter((product: ShopifyProduct) => 
+          product.title.toLowerCase().includes('náušnice') || 
+          product.title.toLowerCase().includes('earring')
+        );
+    } catch (err) {
+      console.error('Failed to fetch products:', err);
+      error = err instanceof Error ? err.message : 'Failed to fetch products';
+    }
   }
-];
 
-export default function EarringsPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Header */}
+    <div className="min-h-screen bg-bg">
+      <div className="max-w-7xl mx-auto px-gap sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Náušnice</h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Jemné náušnice pro každodenní eleganci
-          </p>
+          <h1 className="text-4xl font-bold text-text mb-4">Náušnice</h1>
+          <p className="text-xl text-muted">Jemné náušnice pro každodenní eleganci</p>
         </div>
 
-        {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map((product) => (
-            <ProductCard
-              key={product.id}
-              id={product.id}
-              title={product.title}
-              price={product.price}
-              image={product.image}
-              description={product.description}
-              href={`/product/${product.id}`}
-            />
-          ))}
-        </div>
+        {error ? (
+          <div className="text-center py-12">
+            <p className="text-muted mb-4">Nepodařilo se načíst produkty</p>
+            <p className="text-sm text-muted">{error}</p>
+          </div>
+        ) : products.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-muted">Žádné náušnice nebyly nalezeny</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {products.map((product) => (
+              <ProductCard
+                key={product.id}
+                id={product.id}
+                title={product.title}
+                price={formatPrice(product.priceRange.minVariantPrice)}
+                image={getAllImageUrls(product)[0] || '/placeholder.svg'}
+                description={product.description || 'Elegantní náušnice z naší kolekce'}
+                href={`/product/${product.handle}`}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,63 +1,64 @@
 import ProductCard from '@/components/ProductCard';
+import { getCollectionProducts, getProducts, formatPrice, getAllImageUrls, ShopifyProduct } from '@/lib/shopify';
 
-// Mock product data - in a real app, this would come from Shopify
-const products = [
-  {
-    id: 'b1',
-    title: 'Zahradní sen',
-    price: '2 400 Kč',
-    image: '/placeholder-bracelet.jpg',
-    description: 'Široký náramek s různobarevnými zahradními květy.'
-  },
-  {
-    id: 'b2',
-    title: 'Lesní stezka',
-    price: '2 100 Kč',
-    image: '/placeholder-bracelet.jpg',
-    description: 'Náramek inspirovaný procházkou lesem s kapradinami a mechem.'
-  },
-  {
-    id: 'b3',
-    title: 'Levandulové pole',
-    price: '2 650 Kč',
-    image: '/placeholder-bracelet.jpg',
-    description: 'Elegantní náramek s levandulí a stříbrnými detaily.'
-  },
-  {
-    id: 'b4',
-    title: 'Mořská bříza',
-    price: '2 300 Kč',
-    image: '/placeholder-bracelet.jpg',
-    description: 'Jemný náramek s mořskými řasami a perletí.'
+export default async function BraceletsPage() {
+  // Try to fetch from collection first, fallback to all products
+  let products: ShopifyProduct[] = [];
+  let error: string | null = null;
+
+  try {
+    // Try to get products from 'bracelets' collection
+    const collectionData = await getCollectionProducts('bracelets', 20);
+    products = collectionData.products.edges.map((edge: { node: ShopifyProduct }) => edge.node);
+  } catch (collectionError) {
+    console.log('Collection not found, trying all products...');
+    try {
+      // Fallback to all products and filter by title
+      const allProductsData = await getProducts(50);
+      products = allProductsData.edges
+        .map((edge: { node: ShopifyProduct }) => edge.node)
+        .filter((product: ShopifyProduct) => 
+          product.title.toLowerCase().includes('náramek') || 
+          product.title.toLowerCase().includes('bracelet')
+        );
+    } catch (err) {
+      console.error('Failed to fetch products:', err);
+      error = err instanceof Error ? err.message : 'Failed to fetch products';
+    }
   }
-];
 
-export default function BraceletsPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Header */}
+    <div className="min-h-screen bg-bg">
+      <div className="max-w-7xl mx-auto px-gap sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Náramky</h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Stylové náramky plné přírodní krásy
-          </p>
+          <h1 className="text-4xl font-bold text-text mb-4">Náramky</h1>
+          <p className="text-xl text-muted">Stylové náramky plné přírodní krásy</p>
         </div>
 
-        {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map((product) => (
-            <ProductCard
-              key={product.id}
-              id={product.id}
-              title={product.title}
-              price={product.price}
-              image={product.image}
-              description={product.description}
-              href={`/product/${product.id}`}
-            />
-          ))}
-        </div>
+        {error ? (
+          <div className="text-center py-12">
+            <p className="text-muted mb-4">Nepodařilo se načíst produkty</p>
+            <p className="text-sm text-muted">{error}</p>
+          </div>
+        ) : products.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-muted">Žádné náramky nebyly nalezeny</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {products.map((product) => (
+              <ProductCard
+                key={product.id}
+                id={product.id}
+                title={product.title}
+                price={formatPrice(product.priceRange.minVariantPrice)}
+                image={getAllImageUrls(product)[0] || '/placeholder.svg'}
+                description={product.description || 'Elegantní náramek z naší kolekce'}
+                href={`/product/${product.handle}`}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

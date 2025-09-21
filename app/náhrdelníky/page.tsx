@@ -1,77 +1,64 @@
 import ProductCard from '@/components/ProductCard';
+import { getCollectionProducts, getProducts, formatPrice, getAllImageUrls, ShopifyProduct } from '@/lib/shopify';
 
-// Mock product data - in a real app, this would come from Shopify
-const products = [
-  {
-    id: 'n1',
-    title: 'Růžové okvětí',
-    price: '2 890 Kč',
-    image: '/placeholder-necklace.jpg',
-    description: 'Jemný náhrdelník s růžovými okvětními lístky v průzračné pryskyřici.'
-  },
-  {
-    id: 'n2',
-    title: 'Lesní kapradina',
-    price: '3 200 Kč',
-    image: '/placeholder-necklace.jpg',
-    description: 'Minimalistický design s jemnou kapradinou z českých lesů.'
-  },
-  {
-    id: 'n3',
-    title: 'Loučka v létě',
-    price: '2 650 Kč',
-    image: '/placeholder-necklace.jpg',
-    description: 'Barevná směs lučních květů zachycená v elegantním náhrdelníku.'
-  },
-  {
-    id: 'n4',
-    title: 'Zimní kouzlo',
-    price: '3 100 Kč',
-    image: '/placeholder-necklace.jpg',
-    description: 'Křehké zimní větvičky s drobnými krystalky.'
-  },
-  {
-    id: 'n5',
-    title: 'Jarní probuzení',
-    price: '2 750 Kč',
-    image: '/placeholder-necklace.jpg',
-    description: 'Mladé lístky a první jarní květy v jemném náhrdelníku.'
-  },
-  {
-    id: 'n6',
-    title: 'Podzimní symfonie',
-    price: '3 000 Kč',
-    image: '/placeholder-necklace.jpg',
-    description: 'Teplé podzimní barvy listů zachycené v elegantním tvaru.'
+export default async function NecklacesPage() {
+  // Try to fetch from collection first, fallback to all products
+  let products: ShopifyProduct[] = [];
+  let error: string | null = null;
+
+  try {
+    // Try to get products from 'necklaces' collection
+    const collectionData = await getCollectionProducts('necklaces', 20);
+    products = collectionData.products.edges.map((edge: { node: ShopifyProduct }) => edge.node);
+  } catch (collectionError) {
+    console.log('Collection not found, trying all products...');
+    try {
+      // Fallback to all products and filter by title
+      const allProductsData = await getProducts(50);
+      products = allProductsData.edges
+        .map((edge: { node: ShopifyProduct }) => edge.node)
+        .filter((product: ShopifyProduct) => 
+          product.title.toLowerCase().includes('náhrdelník') || 
+          product.title.toLowerCase().includes('necklace')
+        );
+    } catch (err) {
+      console.error('Failed to fetch products:', err);
+      error = err instanceof Error ? err.message : 'Failed to fetch products';
+    }
   }
-];
 
-export default function NecklacesPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Header */}
+    <div className="min-h-screen bg-bg">
+      <div className="max-w-7xl mx-auto px-gap sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Náhrdelníky</h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Elegantní náhrdelníky s květinami zachycenými v čase
-          </p>
+          <h1 className="text-4xl font-bold text-text mb-4">Náhrdelníky</h1>
+          <p className="text-xl text-muted">Elegantní náhrdelníky s květinami z českých luk a lesů</p>
         </div>
 
-        {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map((product) => (
-            <ProductCard
-              key={product.id}
-              id={product.id}
-              title={product.title}
-              price={product.price}
-              image={product.image}
-              description={product.description}
-              href={`/product/${product.id}`}
-            />
-          ))}
-        </div>
+        {error ? (
+          <div className="text-center py-12">
+            <p className="text-muted mb-4">Nepodařilo se načíst produkty</p>
+            <p className="text-sm text-muted">{error}</p>
+          </div>
+        ) : products.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-muted">Žádné náhrdelníky nebyly nalezeny</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {products.map((product) => (
+              <ProductCard
+                key={product.id}
+                id={product.id}
+                title={product.title}
+                price={formatPrice(product.priceRange.minVariantPrice)}
+                image={getAllImageUrls(product)[0] || '/placeholder.svg'}
+                description={product.description || 'Elegantní náhrdelník z naší kolekce'}
+                href={`/product/${product.handle}`}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

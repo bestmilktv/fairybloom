@@ -4,44 +4,21 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Hero from '@/components/Hero';
 import ProductCard from '@/components/ProductCard';
+import { getProducts, formatPrice, getFirstImageUrl, ShopifyProduct } from '@/lib/shopify';
 
-// Featured products for homepage
-const featuredProducts = [
-  {
-    id: 'n1',
-    title: 'Růžové okvětí',
-    price: '2 890 Kč',
-    image: '/placeholder-necklace.jpg',
-    description: 'Jemný náhrdelník s růžovými okvětními lístky v průzračné pryskyřici.',
-    category: 'Náhrdelníky'
-  },
-  {
-    id: 'e1',
-    title: 'Pomněnkové kapky',
-    price: '1 890 Kč',
-    image: '/placeholder-earrings.jpg',
-    description: 'Drobné náušnice s modrými pomněnkami v kapkovitém tvaru.',
-    category: 'Náušnice'
-  },
-  {
-    id: 'r1',
-    title: 'Věčná láska',
-    price: '3 500 Kč',
-    image: '/placeholder-ring.jpg',
-    description: 'Romantický prsten s červenými růžemi a zlatým rámem.',
-    category: 'Prsteny'
-  },
-  {
-    id: 'b1',
-    title: 'Zahradní sen',
-    price: '2 400 Kč',
-    image: '/placeholder-bracelet.jpg',
-    description: 'Široký náramek s různobarevnými zahradními květy.',
-    category: 'Náramky'
+export default async function Home() {
+  // Fetch featured products from Shopify
+  let featuredProducts: ShopifyProduct[] = [];
+  let error: string | null = null;
+
+  try {
+    const data = await getProducts(8); // Fetch first 8 products
+    featuredProducts = data.edges.map((edge: { node: ShopifyProduct }) => edge.node);
+  } catch (err) {
+    console.error('Failed to fetch products:', err);
+    error = err instanceof Error ? err.message : 'Failed to fetch products';
   }
-];
 
-export default function Home() {
   return (
     <div className="min-h-screen bg-bg">
       {/* Hero Section */}
@@ -97,19 +74,26 @@ export default function Home() {
           <p className="text-muted">Naše nejoblíbenější kousky</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {featuredProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              id={product.id}
-              title={product.title}
-              price={product.price}
-              image={product.image}
-              description={product.description}
-              href={`/product/${product.id}`}
-            />
-          ))}
-        </div>
+        {error ? (
+          <div className="text-center py-12">
+            <p className="text-muted mb-4">Nepodařilo se načíst produkty</p>
+            <p className="text-sm text-muted">{error}</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {featuredProducts.map((product) => (
+              <ProductCard
+                key={product.id}
+                id={product.id}
+                title={product.title}
+                price={formatPrice(product.priceRange.minVariantPrice)}
+                image={getFirstImageUrl(product)}
+                description={product.description || 'Elegantní šperk z naší kolekce'}
+                href={`/product/${product.handle}`}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   )
