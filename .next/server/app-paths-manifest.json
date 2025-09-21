@@ -1,0 +1,10 @@
+{
+  "/_not-found": "app/_not-found.js",
+  "/api/create-checkout/route": "app/api/create-checkout/route.js",
+  "/náramky/page": "app/náramky/page.js",
+  "/náhrdelníky/page": "app/náhrdelníky/page.js",
+  "/náušnice/page": "app/náušnice/page.js",
+  "/prsteny/page": "app/prsteny/page.js",
+  "/page": "app/page.js",
+  "/product/[id]/page": "app/product/[id]/page.js"
+}

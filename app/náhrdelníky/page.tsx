@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
@@ -66,13 +67,12 @@ export default function NecklacesPage() {
             <Link key={product.id} href={`/product/${product.id}`}>
               <Card className="group cursor-pointer hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                 <div className="aspect-square overflow-hidden rounded-t-lg bg-gray-100">
-                  <img
+                  <Image
                     src={product.image}
                     alt={product.title}
+                    width={400}
+                    height={400}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    onError={(e) => {
-                      e.currentTarget.src = '/placeholder.svg';
-                    }}
                   />
                 </div>
                 <CardContent className="p-6">

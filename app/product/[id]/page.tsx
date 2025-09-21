@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowLeft, Heart, Plus, Minus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -234,13 +235,12 @@ export default function ProductPage({ params }: ProductPageProps) {
           <div className="space-y-4">
             {/* Main Image */}
             <div className="aspect-square bg-white rounded-2xl overflow-hidden shadow-sm">
-              <img
+              <Image
                 src={product.images[0]}
                 alt={product.title}
+                width={600}
+                height={600}
                 className="w-full h-full object-cover"
-                onError={(e) => {
-                  e.currentTarget.src = '/placeholder.svg';
-                }}
               />
             </div>
             
@@ -252,13 +252,12 @@ export default function ProductPage({ params }: ProductPageProps) {
                     key={index}
                     className="aspect-square bg-white rounded-lg overflow-hidden border-2 border-gray-200 hover:border-gray-300 transition-colors cursor-pointer"
                   >
-                    <img
+                    <Image
                       src={image}
                       alt={`${product.title} ${index + 1}`}
+                      width={100}
+                      height={100}
                       className="w-full h-full object-cover"
-                      onError={(e) => {
-                        e.currentTarget.src = '/placeholder.svg';
-                      }}
                     />
                   </div>
                 ))}
@@ -335,13 +334,12 @@ export default function ProductPage({ params }: ProductPageProps) {
                 <Link key={relatedProduct.id} href={`/product/${relatedProduct.id}`}>
                   <Card className="group cursor-pointer hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                     <div className="aspect-square overflow-hidden rounded-t-lg bg-gray-100">
-                      <img
+                      <Image
                         src={relatedProduct.images[0]}
                         alt={relatedProduct.title}
+                        width={400}
+                        height={400}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        onError={(e) => {
-                          e.currentTarget.src = '/placeholder.svg';
-                        }}
                       />
                     </div>
                     <CardContent className="p-6">
