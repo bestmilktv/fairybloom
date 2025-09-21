@@ -1,10 +1,10 @@
 {
   "/_not-found": "app/_not-found.js",
+  "/api/create-checkout/route": "app/api/create-checkout/route.js",
   "/náhrdelníky/page": "app/náhrdelníky/page.js",
   "/náramky/page": "app/náramky/page.js",
-  "/api/create-checkout/route": "app/api/create-checkout/route.js",
   "/náušnice/page": "app/náušnice/page.js",
   "/page": "app/page.js",
-  "/prsteny/page": "app/prsteny/page.js",
-  "/product/[id]/page": "app/product/[id]/page.js"
+  "/product/[id]/page": "app/product/[id]/page.js",
+  "/prsteny/page": "app/prsteny/page.js"
 }

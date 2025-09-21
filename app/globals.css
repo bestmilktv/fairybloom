@@ -1,9 +1,21 @@
+/* RESTORED THEME TOKENS - safe change */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
+    /* Base theme tokens */
+    --bg: 0 0% 100%;
+    --surface: 0 0% 98%;
+    --text: 222.2 84% 4.9%;
+    --muted: 215.4 16.3% 46.9%;
+    --accent: 222.2 47.4% 11.2%;
+    --radius: 0.75rem;
+    --shadow-soft: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --gap-base: 1rem;
+    
+    /* Existing shadcn/ui tokens */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
@@ -14,19 +26,25 @@
     --primary-foreground: 210 40% 98%;
     --secondary: 210 40% 96%;
     --secondary-foreground: 222.2 84% 4.9%;
-    --muted: 210 40% 96%;
     --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96%;
     --accent-foreground: 222.2 84% 4.9%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
-    --radius: 0.5rem;
   }
 
   .dark {
+    /* Base theme tokens - dark mode */
+    --bg: 222.2 84% 4.9%;
+    --surface: 217.2 32.6% 17.5%;
+    --text: 210 40% 98%;
+    --muted: 215 20.2% 65.1%;
+    --accent: 210 40% 98%;
+    --shadow-soft: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+    
+    /* Existing shadcn/ui tokens - dark mode */
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
     --card: 222.2 84% 4.9%;
@@ -37,9 +55,7 @@
     --primary-foreground: 222.2 47.4% 11.2%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
@@ -55,5 +71,19 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  
+  /* Responsive font scaling */
+  @media (min-width: 640px) {
+    body { font-size: 16px; }
+  }
+  @media (min-width: 768px) {
+    body { font-size: 17px; }
+  }
+  @media (min-width: 1024px) {
+    body { font-size: 18px; }
   }
 }

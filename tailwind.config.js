@@ -1,3 +1,4 @@
+/* RESTORED THEME TOKENS - safe change */
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
@@ -17,6 +18,14 @@ module.exports = {
     },
     extend: {
       colors: {
+        // Base theme tokens
+        bg: "hsl(var(--bg))",
+        surface: "hsl(var(--surface))",
+        text: "hsl(var(--text))",
+        muted: "hsl(var(--muted))",
+        accent: "hsl(var(--accent))",
+        
+        // Existing shadcn/ui colors
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -51,10 +60,18 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      spacing: {
+        'gap': 'var(--gap-base)',
+      },
       borderRadius: {
+        '2xl': 'var(--radius)',
+        'xl': 'calc(var(--radius) - 0.25rem)',
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      boxShadow: {
+        'soft': 'var(--shadow-soft)',
       },
       keyframes: {
         "accordion-down": {
